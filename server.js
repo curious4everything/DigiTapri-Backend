@@ -1,5 +1,5 @@
 // server.js
-require('dotenv').config({ path: 'E:/Coding/Fullstack/AI_Project/Social_Media_DigiTapri/backend/evar.env' });// Load environment variables from .env
+require('dotenv').config();// Load environment variables from .env { path: 'E:/Coding/Fullstack/AI_Project/Social_Media_DigiTapri/backend/evar.env' }
 const express = require('express');
 const cors = require('cors'); // Import the cors middleware
 const app = express();
@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 });
 
 app.use(cors({
-  origin: 'http://localhost:3000', // Allow requests only from your frontend's origin
+  origin: process.env.CLIENT_URL ||'http://localhost:3000', // Allow requests only from your frontend's origin
   credentials: true, // ✅ Allow cookies/auth headers
 }));
 
