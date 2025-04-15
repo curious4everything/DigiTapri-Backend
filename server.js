@@ -31,20 +31,23 @@ app.use(cors({
       callback(new Error('Not allowed by CORS')); // Block the request
     }
   },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allow these HTTP methods
   credentials: true, // ✅ Allow cookies/auth headers
 }));
 
-//routes
+// Handle preflight requests
+app.options('*', cors());
+
+// Routes
 app.use('/api', authroutes);
 app.use('/api/posts', postRoutes);
 app.use('/api', protectedRoutes);
-app.use('/api/likes', likeroutes); // Add this line to include the like routes
+app.use('/api/likes', likeroutes);
 
 app.get('/', (req, res) => {
   res.send('This is Auth projet server made on Express JS');
 });
 
 app.listen(PORT, () => {
-    //server change check comments
   console.log(`Server listening on port ${PORT}`);
 });
