@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 
 const allowedOrigins = [
   process.env.CLIENT_URL || 'http://localhost:3000', // Frontend in development
-  'https://your-app-name.netlify.app', // Frontend in production
+  'https://zippy-begonia-4f42bf.netlify.app/', // Frontend in production
 ];
 
 app.use(cors({
