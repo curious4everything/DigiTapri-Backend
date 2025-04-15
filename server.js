@@ -18,8 +18,19 @@ app.use((req, res, next) => {
   next();
 });
 
+const allowedOrigins = [
+  process.env.CLIENT_URL || 'http://localhost:3000', // Frontend in development
+  'https://your-app-name.netlify.app', // Frontend in production
+];
+
 app.use(cors({
-  origin: process.env.CLIENT_URL ||'http://localhost:3000', // Allow requests only from your frontend's origin
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true); // Allow the request
+    } else {
+      callback(new Error('Not allowed by CORS')); // Block the request
+    }
+  },
   credentials: true, // ✅ Allow cookies/auth headers
 }));
 
